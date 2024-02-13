@@ -5,9 +5,9 @@
 
 pkgname=sway
 pkgver=1.9
-_pkgver=1.9-rc2
+_pkgver=1.9-rc3
 epoch=1
-pkgrel=2
+pkgrel=3
 pkgdesc='Tiling Wayland compositor and replacement for the i3 window manager'
 arch=(x86_64)
 url='https://swaywm.org/'
@@ -66,7 +66,7 @@ prepare() {
 
 build() {
   mkdir -p build
-  arch-meson build "$pkgname-$_pkgver" -D sd-bus-provider=libsystemd -D werror=false -D b_ndebug=true
+  arch-meson build "$pkgname-$_pkgver" -D default-wallpaper=false -D swaybar=false -D sd-bus-provider=libsystemd -D werror=false -D b_ndebug=true -D b_lto=true
   ninja -C build
 }
 
