@@ -34,35 +34,47 @@ build() {
   CFLAGS+=' -mtls-dialect=gnu'
   CXXFLAGS+=' -mtls-dialect=gnu'
 
-  arch-meson mesa build \
+  meson mesa build \
     -D b_ndebug=true \
-    -D android-libbacktrace=disabled \
+    -D b_pie=true \
+    -D b_lto=true
+    -D buildtype=plain \
+    -D wrap-mode=nodownload \
     -D platforms=x11,wayland \
-    -D gallium-drivers=radeonsi,swrast,zink \
-    -D vulkan-drivers=amd \
-    -D vulkan-layers=device-select,overlay \
+    -D egl-native-platform=x11,wayland \
+    -D android-libbacktrace=disabled \
     -D dri3=enabled \
-    -D egl=enabled \
-    -D gallium-extra-hud=true \
-    -D gallium-nine=false \
-    -D gallium-omx=disabled \
-    -D gallium-opencl=disabled \
-    -D gallium-va=enabled \
+    -D expat=enabled \
+    -D gallium-drivers=radeonsi,zink \
     -D gallium-vdpau=disabled \
-    -D gallium-xa=disabled \
-    -D gbm=enabled \
+    -D gallium-omx=disabled \
+    -D gallium-va=enabled \
+    -D gallium-va=disabled \
+    -D vulkan-drivers=amd \
+    -D freedreno-kmds=[] \
+    -D shader-cache=enabled \
+    -D vulkan-layers=device-select,overlay \
+    -D shared-glapi=enabled \
     -D gles1=disabled \
     -D gles2=enabled \
-    -D glvnd=true \
+    -D gbm=enabled \
     -D glx=dri \
-    -D libunwind=enabled \
-    -D llvm=enabled \
-    -D lmsensors=enabled \
-    -D osmesa=false \
+    -D egl=enabled \
+    -D glvnd=enabled \
     -D microsoft-clc=disabled \
+    -D llvm=disabled \
     -D valgrind=disabled \
+    -D libunwind=enabled \
+    -D lmsensors=enabled \
+    -D enable-glcpp-tests=false \
+    -D power8=disabled \
+    -D xlib-lease=enabled \
+    -D allow-kcmp=enabled \
     -D zstd=enabled \
-    -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc
+    -D intel-clc=disabled \
+    -D video-codecs=all \
+    -D gallium-d3d12-video=disabled \
+    -D xmlconfig=enabled \
 
   # Print config
   meson configure --no-pager build
